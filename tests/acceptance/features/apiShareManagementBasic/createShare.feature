@@ -394,7 +394,7 @@ Feature: sharing
       | 1               | 100             |
       | 2               | 200             |
 
-  @skipOnOcis @issue-ocis-reva-21 @issue-ocis-reva-243
+  @skipOnOcis @issue-ocis-reva-34 @issue-ocis-reva-243
   Scenario Outline: user shares a file with file name longer than 64 chars to a group
     Given using OCS API version "<ocs_api_version>"
     And group "grp1" has been created
@@ -425,7 +425,7 @@ Feature: sharing
       | 1               | 100             |
       | 2               | 200             |
 
-  @skipOnOcis @issue-ocis-reva-21 @issue-ocis-reva-243 @issue-ocis-reva-12
+  @skipOnOcis @issue-ocis-reva-34 @issue-ocis-reva-243 @issue-ocis-reva-12
   Scenario Outline: user shares a folder with folder name longer than 64 chars to a group
     Given using OCS API version "<ocs_api_version>"
     And group "grp1" has been created
@@ -479,7 +479,7 @@ Feature: sharing
       | /randomfile.txt |
     And the content of file "randomfile.txt" for user "Brian" should be "Random data"
 
-  @skipOnOcis @issue-ocis-reva-21
+  @skipOnOcis @issue-ocis-reva-34
   Scenario Outline: Share of folder to a group with emoji in the name
     Given using OCS API version "<ocs_api_version>"
     And these users have been created with default attributes and without skeleton files:
@@ -562,7 +562,7 @@ Feature: sharing
       | 1               | 100             |
       | 2               | 200             |
 
-  @skipOnOcis @issue-ocis-reva-21 @skipOnFilesClassifier @issue-files-classifier-291 @issue-ocis-reva-243
+  @skipOnOcis @issue-ocis-reva-34 @skipOnFilesClassifier @issue-files-classifier-291 @issue-ocis-reva-243
   Scenario: Share a file by multiple channels and download from sub-folder and direct file share
     Given these users have been created with default attributes and without skeleton files:
       | username |
