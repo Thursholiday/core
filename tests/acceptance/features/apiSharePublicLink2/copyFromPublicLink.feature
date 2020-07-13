@@ -68,6 +68,7 @@ Feature: copying from public link share
     Then the HTTP status code should be "204"
     And as "Alice" folder "/PARENT/testFolder" should exist
     And as "Alice" folder "/PARENT/copy1.txt" should exist
+    And as "Alice" folder "/PARENT/copy1.txt/testfile.txt" should exist
     And the content of file "/PARENT/testFolder/testfile.txt" for user "Alice" should be "some data"
     And the content of file "/PARENT/copy1.txt/testfile.txt" for user "Alice" should be "some data"
 
@@ -93,7 +94,6 @@ Feature: copying from public link share
     Then the HTTP status code should be "204"
     And as "Alice" file "/PARENT/testfile.txt" should exist
     And as "Alice" folder "/PARENT/new-folder" should exist
-    And as "Alice" file "/PARENT/new-folder/testfile1.txt" should not exist
     And the content of file "/PARENT/testfile.txt" for user "Alice" should be "some data"
     And the content of file "/PARENT/new-folder" for user "Alice" should be "some data"
 
@@ -135,24 +135,24 @@ Feature: copying from public link share
 
   Scenario Outline: Copy file within a public link folder into a folder with special characters
     Given user "Alice" has uploaded file with content "some data" to "/PARENT/testfile.txt"
-    And user "Alice" has created folder "/PARENT/<destination-file-name>"
+    And user "Alice" has created folder "/PARENT/<destination-folder-name>"
     And user "Alice" has created a public link share with settings
       | path        | /PARENT                   |
       | permissions | read,update,create,delete |
-    When the public copies file "/testfile.txt" to "/<destination-file-name>/copy1.txt" using the new public WebDAV API
+    When the public copies file "/testfile.txt" to "/<destination-folder-name>/copy1.txt" using the new public WebDAV API
     Then the HTTP status code should be "201"
     And as "Alice" file "/PARENT/testfile.txt" should exist
-    And as "Alice" file "/PARENT/<destination-file-name>/copy1.txt" should exist
+    And as "Alice" file "/PARENT/<destination-folder-name>/copy1.txt" should exist
     And the content of file "/PARENT/testfile.txt" for user "Alice" should be "some data"
-    And the content of file "/PARENT/<destination-file-name>/copy1.txt" for user "Alice" should be "some data"
+    And the content of file "/PARENT/<destination-folder-name>/copy1.txt" for user "Alice" should be "some data"
     Examples:
       | destination-folder-name |
-      | नेपाली.txt            |
-      | strängé file.txt      |
-      | C++ file.cpp          |
-      | sample,1.txt          |
+      | नेपाली.txt              |
+      | strängé file.txt        |
+      | C++ file.cpp            |
+      | sample,1.txt            |
 
-  @skipOnOcis
+  @skipOnOcis @issue-ocis-reva-368
   Scenario Outline: Copy file within a public link folder to a file with unusual destination names
     Given user "Alice" has uploaded file with content "some data" to "/PARENT/testfile.txt"
     And user "Alice" has created a public link share with settings
@@ -167,7 +167,7 @@ Feature: copying from public link share
       | testfile.txt          |
       |                       |
 
-  @skipOnOcis
+  @skipOnOcis @issue-ocis-reva-368
   Scenario Outline: Copy folder within a public link folder to a folder with unusual destination names
     Given user "Alice" has created folder "/PARENT/testFolder"
     And user "Alice" has uploaded file with content "some data" to "/PARENT/testFolder/testfile.txt"
